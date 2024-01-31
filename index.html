@@ -7,44 +7,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GitHub Release Download Count</title>
     <style>
-
-@font-face {
-        font-family: 'BlenderPro';
-        src: url('ruta/a/tu/fuente/BlenderPro-Regular.woff2') format('woff2');
-        /* Ajusta la ruta según la ubicación de tus archivos de fuente. */
-        font-weight: normal;
-        font-style: normal;
-    }
         body {
             font-family: 'Arial', sans-serif;
-            color: #FFFFFF; /* Texto en blanco */
+            color: #FFFFFF;
             margin: 20px;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 5px; /* Ajusta el espaciado entre elementos */
+            gap: 5px;
             background-image: url('https://i.imgur.com/hs98LmQ.png');
             background-color: #36393F;
-            background-size: 30%; /* Tamaño del fondo ajustado */
+            background-size: 30%;
             background-repeat: no-repeat;
             background-position: center;
-            opacity: 0.9; /* Ajusta la opacidad de la imagen de fondo */
+            opacity: 0.9;
         }
 
         .release-container {
-            width: 220px; /* Ancho fijo para cada square */
+            width: 220px;
             max-height: 180px; 
             text-align: center;
             position: relative;
             padding: 20px;
-            border-radius: 15px; /* Esquinas redondas más pronunciadas */
+            border-radius: 15px;
             box-shadow: 0 4px 8px rgba(117, 117, 117, 0.1);
-            background-color: rgba(72, 76, 84, 0.7); /* Color de fondo claro con opacidad */
-            overflow: hidden; /* Oculta el contenido que excede la altura máxima */
+            background-color: rgba(72, 76, 84, 0.7);
+            overflow: hidden;
         }
 
         h2 {
-            color: #7289DA; /* Morado de Discord */
+            color: #7289DA;
             font-size: 18px;
             margin-bottom: 10px;
             overflow: hidden;
@@ -66,7 +58,7 @@
         }
 
         .tag {
-            color: #7289DA; /* Morado de Discord */
+            color: #7289DA;
             font-weight: bold;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -74,7 +66,7 @@
         }
 
         .description {
-            color: #B9BBBE; /* Texto gris claro */
+            color: #B9BBBE;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
@@ -83,7 +75,7 @@
         #stats-header {
             font-size: 24px;
             font-weight: bold;
-            color: #7289DA; /* Morado de Discord */
+            color: #7289DA;
             width: 100%;
             text-align: center;
             margin-bottom: 20px;
