@@ -2,125 +2,249 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BitZ's Mods Download Count</title>
     <style>
+        /* Variables de color */
+        :root {
+            --primary: #4CAF50;
+            --secondary: #8BC34A;
+            --dark-bg: #121212;
+            --light-bg: #ffffff;
+            --dark-text: #f0f0f0;
+            --light-text: #1a1a1a;
+            --card-bg-dark: #2e2e2e;
+            --card-bg-light: #f7f7f7;
+            --border-dark: #333;
+            --border-light: #ccc;
+            --shadow: rgba(0, 0, 0, 0.2);
+            --gradient-dark: linear-gradient(135deg, #1a1a1a, #333333);
+            --gradient-light: linear-gradient(135deg, #ffffff, #f0f0f0);
+        }
+
+        /* Reset general */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Fondo y estilo general */
         body {
-            font-family: 'Arial', sans-serif;
-            color: #FFFFFF;
-            margin: 20px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 5px;
-            background-image: url('https://i.imgur.com/hs98LmQ.png');
+            font-family: 'Varela Round', Arial, sans-serif;
+            color: #fff;
+            background-image: url('assets/bg/layer0.svg');  /* El SVG como fondo */
             background-color: #36393F;
-            background-size: 30%;
+            background-size: cover;
             background-repeat: no-repeat;
-            background-position: center;
+            background-position: center center;
+            background-attachment: fixed;
             opacity: 0.9;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            z-index: 1000;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            text-align: center;
+            overflow-x: auto; /* Habilitar scroll horizontal solo en pantallas pequeñas */
+            white-space: nowrap; /* Evitar que los elementos se rompan */
+        }
+
+        nav h1 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .tab-buttons {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .navbar-button {
+            background: rgba(40, 43, 48, 0.6);
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(117, 117, 117, 0.1);
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .navbar-button:hover {
+            background-color: #ffffff66;
+            color: black;
+            transform: scale(1.05);
+        }
+
+        .navbar-button:focus {
+            outline: none;
+        }
+
+        /* Modo responsive (pantallas pequeñas) */
+        @media (max-width: 768px) {
+            /* Navbar deslizable en pantallas pequeñas */
+            nav {
+                flex-direction: row;
+                gap: 15px;
+                padding: 10px;
+                overflow-x: scroll; /* Permitir el desplazamiento horizontal */
+                justify-content: flex-start;
+            }
+
+            .tab-buttons {
+                flex-direction: row; /* Los botones en fila */
+                gap: 10px;
+            }
+
+            .navbar-button {
+                min-width: 120px; /* Aseguramos que los botones no se vuelvan demasiado pequeños */
+            }
+
+            .container {
+                display: block; /* Mostrar los contenedores en columna en pantallas pequeñas */
+                padding: 10px;
+                width: 100%; /* Ajustar el tamaño para que no se deformen */
+            }
+
+            .release-container {
+                margin-bottom: 15px; /* Espaciado entre contenedores */
+            }
+        }
+
+        /* Estilos del contenedor y modo de visualización */
+        .container {
+            margin: 100px auto 20px;
+            padding: 20px;
+            display: none;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            overflow-y: auto; /* Permitir scroll */
+        }
+
+        .container.active {
+            display: grid;
         }
 
         .release-container {
-            width: 220px;
-            max-height: 180px; 
-            text-align: center;
-            position: relative;
+            background: rgba(40, 43, 48, 0.6);
+            color: var(--dark-text);
             padding: 20px;
-            border-radius: 15px;
+            border-radius: 10px;
+            border: 2px solid  #dcdcdc;
             box-shadow: 0 4px 8px rgba(117, 117, 117, 0.1);
-            background-color: rgba(72, 76, 84, 0.7);
-            overflow: hidden;
-            margin-bottom: 20px;
-            margin-right: 20px; 
+            text-align: center;
+            transition: transform 0.3s, border-color 0.3s;
         }
 
-        h2 {
-            color: #7289DA;
-            font-size: 18px;
-            margin-bottom: 10px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+        .release-container:hover {
+            transform: scale(1.05);
         }
 
-        .release-name {
-            font-size: 16px;
-            margin-bottom: 10px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+        .release-container h2 {
+            font-size: 1.2rem;
+            color: #ffffff;
         }
 
         .download-count {
-            font-size: 20px;
-            margin-bottom: 10px;
-        }
-
-        .tag {
-            color: #7289DA;
+            font-size: 1rem;
             font-weight: bold;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+            margin: 10px 0;
         }
 
-        .description {
-            color: #B9BBBE;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+        .tag, .description {
+            font-size: 0.9rem;
+            margin: 5px 0;
         }
 
-        #stats-header {
-            font-size: 24px;
-            font-weight: bold;
-            color: #7289DA;
-            width: 100%;
-            text-align: center;
-            margin-bottom: 20px;
+        /* Modo claro */
+        body.light-mode {
+            background-color: var(--light-bg);
+            color: var(--light-text);
+            background: var(--gradient-light);
         }
 
-        #freegamesstats-header {
-            font-size: 24px;
-            font-weight: bold;
-            color: #7289DA;
-            width: 100%;
-            text-align: center;
-            margin-bottom: 20px;
+        body.light-mode .release-container {
+            background-color: var(--card-bg-light);
+            color: var(--light-text);
+            border: 2px solid var(--border-light);
         }
-       
+
+        body.light-mode .navbar-button {
+            background-color: var(--primary);
+            color: var(--light-text);
+        }
+
+        body.light-mode .toggle-mode {
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+        }
     </style>
 </head>
 <body>
 
-<div id="stats-header">CustomProfiles Stats</div>
+<header>
+    <nav>
+        <h1>BitZ's Mods</h1>
+        <div class="tab-buttons">
+            <button class="navbar-button" onclick="switchTab('Dark-Mode-TPs-container')">DarkMode TPs</button>
+            <button class="navbar-button" onclick="switchTab('custom-profiles-container')">CustomProfiles</button>
+            <button class="navbar-button" onclick="switchTab('free-games-container')">MoreGames</button>
+        </div>
+    </nav>
+</header>
 
-<div id="custom-profiles-container" style="display: flex; flex-wrap: wrap; justify-content: center;"></div>
-
-<div id="freegamesstats-header">More Games Stats</div>
-
-<div id="free-games-container" style="display: flex; flex-wrap: wrap; justify-content: center;"></div>
+<div id="Dark-Mode-TPs-container" class="container"></div>
+<div id="custom-profiles-container" class="container"></div>
+<div id="free-games-container" class="container"></div>
 
 <script>
+    // Cambiar de pestañas
+    function switchTab(containerId) {
+        document.querySelectorAll('.container').forEach(container => {
+            container.classList.remove('active');
+        });
+        document.getElementById(containerId).classList.add('active');
+    }
+
+    // Cambiar entre modo claro y oscuro
+    function toggleMode() {
+        document.body.classList.toggle('light-mode');
+        const button = document.querySelector('.toggle-mode');
+        button.textContent = document.body.classList.contains('light-mode') ? '🌑 Dark Mode' : '🌙 Light Mode';
+    }
+
+    // Obtener datos de descargas
     async function getDownloadCount(url, containerId) {
         try {
             const response = await fetch(url);
             const releases = await response.json();
 
-            releases.forEach((release, index) => {
+            releases.forEach((release) => {
                 const releaseContainer = document.createElement('div');
                 releaseContainer.classList.add('release-container');
 
                 const releaseTitle = document.createElement('h2');
                 releaseTitle.textContent = release.name || 'Unnamed Release';
                 releaseContainer.appendChild(releaseTitle);
-
-                const releaseNameElement = document.createElement('div');
-                releaseNameElement.classList.add('release-name');
-                releaseNameElement.textContent = `Release ${index + 1}`;
-                releaseContainer.appendChild(releaseNameElement);
 
                 const downloadCounts = release.assets.map(asset => asset.download_count);
                 const totalDownloads = downloadCounts.reduce((acc, count) => acc + count, 0);
@@ -137,7 +261,7 @@
 
                 const descriptionText = document.createElement('p');
                 descriptionText.classList.add('description');
-                descriptionText.textContent = `Description: ${release.body}`;
+                descriptionText.textContent = release.body ? `Description: ${release.body}` : 'No description available.';
                 releaseContainer.appendChild(descriptionText);
 
                 document.getElementById(containerId).appendChild(releaseContainer);
@@ -149,8 +273,13 @@
         }
     }
 
+    // Cargar datos para cada sección
+    getDownloadCount('https://api.github.com/repos/iArtie/DarkModeV4-Index/releases', 'Dark-Mode-TPs-container');
     getDownloadCount('https://api.github.com/repos/iArtie/CustomProfiles/releases', 'custom-profiles-container');
     getDownloadCount('https://api.github.com/repos/iArtie/FreeGames/releases', 'free-games-container');
+
+    // Por defecto, mostrar la primera pestaña
+    switchTab('Dark-Mode-TPs-container');
 </script>
 
 </body>
